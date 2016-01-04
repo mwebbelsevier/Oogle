@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>The Oogle Search Engine</title>
+		<link rel="stylesheet" href="stylesheet.css">
+	</head>
+	<body>
+	<div class="container">
+	    <h1>
+            Summary</h1>
+        <p>
+            You are working on a light-weight site search tool, similar to a search engine. 
+            Someone has decided to codename it <i>Oogle</i>.<br><br>
+			<img src="Oogle.png"><br>
+			<br>
+			The project is being run iteratively 
+            and you have been asked to make two implementations of the search engine:
+            <ul><li>a 
+            basic one, intended to get the project up and running, which probably uses some 
+            sort of linear sweep through the data</li><li>a higher-performing 
+            version, which can be delivered later, based on lessons learned from the 
+            original, and attempting at least a ten-fold performance improvement</li></ul></p>
+        <p>
+            It is expected that this search will be run on hardware that is not very fast, 
+            but has enough memory to hold all the pages that need searching up to four 
+            times over. Imagine that this will run on some sort of low-speed embedded device 
+            which doesn't have the latest frameworks or the ability to install them. You
+			expect the algorithm to be used for over 1000 pages and a very wide
+			range of searches.</p>
+        <p>
+            The interface has already been defined for you, as have unit tests. The 
+            objective of the exercise is to complete the basic search and, then move on to
+            an alternative algorithm/implementation that will run faster. The unit tests will
+            all pass if your algorithm is correct.</p>
+        <h1>
+            Managing the Code</h1>
+        <p>
+            Make any code changes you wish to any of the files in the project but please do 
+            not:</p>
+        <ul>
+            <li>Remove any unit test scenarios (you can refactor if 
+                necessary, but keep the test cases)</li>
+            <li>Change the interface to the search service - &quot;Oogle&quot;</li>
+            <li>Bring in any third party libraries - this should all be done using core Java</li>
+        </ul>
+        <p>
+            Above all else, please ensure your code is readable and of a quality that you 
+            consider suitable for production.</p>
+        <p>
+            There are comments in the existing code that should explain what is already there and why.
+             You can add methods, fields and other classes as you see fit.</p>
+        <p style="font-weight: 700">
+            Note: a solution to this should be possible in a few dozen lines of code. 
+			<b>You also don't need to build a UI - the unit tests are all you need to demonstrate
+			a working solution.</b></p>
+        <h1>
+            Use Cases</h1>
+        <p>
+            The unit tests illustrate using the Oogle service and what's expected. The JavaDoc explains
+            the semantics of the API. Here are  some useful facts about the service you must implement 
+            to satisfy <i>Oogle</i>:</p>
+        <ul>
+            <li>This will only be run single-threaded</li>
+            <li>Some sort of &quot;web crawler&quot; (external) will find pages, capture their Url and their content 
+                and call Oogle.add with a Page object. The url and content of the page must 
+                not be blank. The content of the page will be a string containing words, 
+                separated only by spaces, commas and full stops. You do not need to worry about 
+                any punctuation other than spaces, commas and full stops.</li>
+            <li>A search via Oogle.find will return all matching pages where all search words 
+                are present (an AND search). Searches are not case-sensitive.</li>
+            <li>It is not valid to search for an empty or null word.</li>
+        </ul>
+        <h1>
+            Implementation Order</h1>
+        <p>
+            Please implement OogleBasic first. Focus on readability and getting all the unit tests to pass. Keep 
+            it simple. Please implement the size() method first.</p>
+        <p>
+            When you are ready to move to the next version, you may find some of your code can be
+            copied and pasted from your original: this duplication is ok, though may 
+            represent an opportunity to restructure things.</p>
+        <p>
+            To compare the performance of the two versions see the performanceTest unit 
+            test case, whose output to the console tells you how long 1000 searches take. You 
+            should be able to achieve a 10-fold performance improvement or better. For simplicity
+			this performance test is repeating the same searches on a small number of pages. 
+			Your optimisation should account for the possibility of many many more pages
+			and a wider variety of search terms.<br/><i>If the performance test is slowing you down then
+			add @Ignore to it when you don't need it.</i></p>
+        <h1>
+            One Test Suite Two Classes</h1>
+        <p>
+            See the comments in the test suite to see how it manages to run the same set of 
+            tests for both your implementations.</p>
+        <p>
+            Run the complete set of tests often. Feel free to add unit tests or create other 
+            unit test classes for anything else in the project.</p>
+    </div>
+	</body>
+</html>
