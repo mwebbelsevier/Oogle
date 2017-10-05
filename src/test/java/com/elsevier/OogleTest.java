@@ -2,69 +2,28 @@ package com.elsevier;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 
 /**
  * Tests for the search engine implementations
  * 
- * Uses the Parameterised Junit test runner so that this test
- * suite can be re-run on both the versions of Oogle. The name
- * of the Oogle class under test will be shown in the JUnit results with the
- * tests as children.
- * 
  * Uses 5 example pages, added to Oogle via the addAllPages function
  * which is called in the beforeEach method 
  */
-@RunWith(Parameterized.class)
 public class OogleTest {
-	/**
-	 * Will be used to build Oogle instances for each test
-	 */
-	private final OogleFactory factory;
-	
 	/**
 	 * The instance of the search engine under test
 	 */
 	private Oogle oogle;
 	
-	/**
-	 * @return the factories to run this test suite with, using first value as a test name
-	 */
-	@Parameters(name="{0}")
-	public static Iterable<Object[]> oogleFactories() {
-		Object[][] factories = { 
-				// name is first parameter - used to name the test
-				// second parameter is the OogleFactory used during the run of the test
-				{"OogleBasic", new OogleBasicFactory()},  		
-				{"OogleHighPerformance", new OogleHighPerformanceFactory()} 
-				};
-		return Arrays.asList(factories);
-	}
-	
-	/**
-	 * Constructor for test suite - will be called by the 
-	 * parameterised test runner against each type of oogle factory
-	 * @param factory
-	 */
-	public OogleTest(String testName, OogleFactory factory) {
-		// test name not needed by the class, but used by the @Parameters annotation
-		// earlier. It's needed in the constructor signature so that Parameterized
-		// can correctly provide the OogleFactory
-		this.factory = factory;
-	}
-	
 	@Before
 	public void beforeEach() {
 		// create a fresh instance of Oogle for testing
 		// and all the pages to it
-		oogle = factory.newInstance();
+		oogle = new OogleBasic();
 		addAllPages();
 	}
 
@@ -179,25 +138,6 @@ public class OogleTest {
     	assertCorrectNumberOfOccurrences("man", 2);  // shouldn't be confused by management or the punctuation near man in one instance
     }
 
-    @Test
-    public void performanceTest() {
-        addExtraPagesToSlowSearchDown();
-
-        long start = System.currentTimeMillis();
-
-        for(int i=0; i<1000; i++) {
-            oogle.find("internet", "corporate", "is", "man");
-        }
-
-        System.out.println("1000 searches using " + oogle.getClass().getCanonicalName() + " took " + (System.currentTimeMillis() - start) + "ms");
-    }
-
-    private void addExtraPagesToSlowSearchDown() {
-        for (int i=0; i<10000; i++) {
-            oogle.add(new Page("http://www." + i + ".com", "The page is test page number " + i));
-        }
-    }
-	
 	private void addAllPages() {
         addPage("http://www.microsoft.com",
                 "Microsoft is the finest software company in the world said a Microsoft employee recently.");
